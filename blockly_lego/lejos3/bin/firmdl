@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#
+# firmdl: Downloads firmware to the RCX
+#
+# 12/12/02  created L. Griffiths
+
+if [ -z "$LEJOS_HOME" ]; then 
+  LEJOS_HOME="$(dirname $(dirname $0))"
+fi
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LEJOS_HOME/bin
+
+if [ $OSTYPE == "cygwin" ]; then
+  SEP=";"
+else
+  SEP=":"
+fi
+
+THIRDPARTY_LIBS="$LEJOS_HOME/3rdparty/lib"
+
+java -Djava.library.path="$LEJOS_HOME/bin" -classpath "$THIRDPARTY_LIBS/commons-cli-1.0.jar$SEP$LEJOS_HOME/lib/jtools.jar$SEP$LEJOS_HOME/lib/pcrcxcomm.jar" js.tools.Firmdl --tty ${RCXTTY:-usb} "$@"
+

@@ -1,0 +1,47 @@
+<!-- ant file to make the irtrcx library -->
+
+<project name="irtrcx" default="make" basedir=".">
+	
+	<!-- cleans all compilation artifacts -->
+	<target name="clean" description="cleans all compilation artifacts">
+		<delete>
+			<fileset dir=".">
+				<include name="*.o"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<!-- make the irtrcx library --> 
+	<target name="make" description="makes the irtrcx library">
+		<cc subsystem="console" 
+		    outfile="${make.out}/irtrcx"
+		    objdir="." 
+		    outtype="shared" 
+  		    debug="false"
+		    exceptions="false"
+		    optimize="size"
+  		    name="${lejos.compiler}">
+			<includepath path="."/>
+			<linker name="g++"/>
+			<linkerarg value="-g" if="debug"/>
+			<linkerarg location="end" value="-framework"/>
+			<linkerarg location="end" value="IOKit"/>
+			<linkerarg location="end" value="-framework"/>
+			<linkerarg location="end" value="CoreFoundation"/>
+			<fileset dir=".">
+				<include name="rcx_comm.c"/>
+  		    		<include name="rcx_comm_${lejos.ostype}.c"/>
+  		    		<include name="rcx_comm.h"/>
+  		    		<include name="rcx_comm_os.h"/>
+		    		<include name="rcx_comm_${lejos.ostype}.h"/>
+		    		<include name="osx_usb.h"/>
+		    		<include name="osx_usb.cpp"/>
+			</fileset>
+			<!-- Workaround for http://sourceforge.net/tracker/index.php?func=detail&aid=1109917&group_id=36177&atid=416920 -->
+			<libset libs="c"/>
+			<versioninfo refid="${lejos.version}"/>
+  		</cc>
+	</target>
+
+</project>
+

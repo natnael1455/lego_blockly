@@ -1,0 +1,13 @@
+var type_light='SensorConstants.SENSOR_TYPE_LIGHT';
+var type_temp='SensorConstants.SENSOR_TYPE_TEMP';
+var type_touch='SensorConstants.SENSOR_TYPE_TOUCH';
+var type_raw='SensorConstants.SENSOR_TYPE_RAW';
+var type_rot='SensorConstants.SENSOR_TYPE_ROT';
+var mode_angle='SensorConstants.SENSOR_MODE_ANGLE';
+var mode_bool='SensorConstants.SENSOR_MODE_BOOL';
+var mode_degc='SensorConstants.SENSOR_MODE_DEGC';
+var mode_degf='SensorConstants.SENSOR_MODE_DEGF';
+var mode_edge='SensorConstants.SENSOR_MODE_EDGE';
+var mode_persent='SensorConstants.SENSOR_MODE_PCT';
+var mode_pluse='SensorConstants.SENSOR_MODE_PULSE';
+var mode_raw='SensorConstants.SENSOR_MODE_RAW';

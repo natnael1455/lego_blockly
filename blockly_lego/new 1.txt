@@ -1,0 +1,18 @@
+﻿Browse[2]> legend(101,2300,legend=c("logistic growth model", "exponential decay model","observations in years 100−150","observations in years 151−200"),)
+Browse[2]> legend(101,2300,legend=c("logistic growth model", "exponential decay model","observations in years 100−150","observations in years 151−200"),col=c("black","red","black", "blue"))
+Browse[2]> plot(year1, first, col ='red', xlim=range(100:200), ylim= ylim, main="Population dynamics", xlab ="time" , ylab= "population size", pch ="*")
+Browse[2]> lines(c(100:200),logistic_model, col ="black")
+Browse[2]> points(year2, second, col = "blue", pch = "+")
+Browse[2]> lines(x,y,col='red')
+Browse[2]> text(year1[which(first==max(first))],max(first)+80,max(first))
+Browse[2]> legend(101,2500,legend=c("logistic growth model", "exponential decay model","observations in years 100−150","observations in years 151−200"),col=c("black","red","black", "blue"))
+Browse[2]> plot(year1, first, col ='red', xlim=range(100:200), ylim= ylim, main="Population dynamics", xlab ="time" , ylab= "population size", pch ="*")
+Browse[2]> legend(101,2500,legend=c("logistic growth model", "exponential decay model","observations in years 100−150","observations in years 151−200"),col=c("black","red","black", "blue"),lty=1:2, cex=0.8)
+Browse[2]> plot(year1, first, col ='red', xlim=range(100:200), ylim= ylim, main="Population dynamics", xlab ="time" , ylab= "population size", pch ="*")
+Browse[2]> legend(101,2500,legend=c("logistic growth model", "exponential decay model","observations in years 100−150","observations in years 151−200"),col=c("black","red","black", "blue"),lty=1:4, cex=0.8)
+Browse[2]> plot(year1, first, col ='red', xlim=range(100:200), ylim= ylim, main="Population dynamics", xlab ="time" , ylab= "population size", pch ="*")
+Browse[2]> legend("topleft",legend=c("logistic growth model", "exponential decay model","observations in years 100−150","observations in years 151−200"),col=c("black","red","black", "blue"),lty=1:4, cex=0.8)
+Browse[2]>  mtext("student number 300202")
+legend("topleft",legend=c("logistic growth model", "exponential decay model","observations in years 100−150","observations in years 151−200"),col=c("black","red","black", "blue"),lty=c(NA,NA,1,1),pch=c(1,2,NA,NA), cex=0.8)
+Browse[2]> observations
+$first

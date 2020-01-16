@@ -1,0 +1,12 @@
+import josx.platform.rcx.*;
+
+
+public class Lego_rcx_code {
+
+public static void main(String[] args)
+throws InterruptedException {
+for (int count = 0; count < 0; count++) {
+}
+Button.RUN.waitForPressAndRelease();
+}
+}

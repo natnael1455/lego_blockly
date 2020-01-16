@@ -1,0 +1,111 @@
+<!DOCTYPE html> 
+<HTML>
+<HEAD>
+<title>Blockly lego rxc programmer</title>
+    <!-- this is the code that will allow icon to be visible in the title bar of the brower -->
+    <link rel="icon" type="image/ico" href="rcx.png" />
+    <script src="httpHandler.js"></script>
+<script>
+function read_code(){
+    var read_obj = JSON.stringify({"type":"read"});
+	var URL="http://localhost/Lego_compiler.php";
+	httpPostAsync(URL,"param="+read_obj,
+		     function(stringOutput){
+		    myObj = JSON.parse(stringOutput);
+		    document.getElementById("codeareadis").innerHTML= myObj.code_file+"\n" ;
+		    });
+	
+    }
+    
+    // even and even listetner to load  the program to the RCX
+	var load_event = new Event('loader')
+	window.addEventListener('loader',
+	 function (e) {
+	document.getElementById("resultareadis").value += "loading the code\n" ;
+	var code_obj = JSON.stringify({"type":"load"});
+	var URL="http://localhost/Lego_compiler.php";
+	httpPostAsync(URL,"param="+code_obj,
+	    function(stringOutput){
+	    myObj = JSON.parse(stringOutput);
+	    document.getElementById("resultareadis").value +=  myObj.loaded+"\n" ;
+						
+	    });
+    }, false);
+    // even and even listetner to compling  the program 	
+	var event = new Event('compiler')
+	window.addEventListener('compiler',
+	 function (e) {
+	document.getElementById("resultareadis").value += "compilling the code\n" ;
+	var code_obj = JSON.stringify({"type":"compile"});
+	var URL="http://localhost/Lego_compiler.php";
+	httpPostAsync(URL,"param="+code_obj,
+	    function(stringOutput){
+	     myObj = JSON.parse(stringOutput);
+	     document.getElementById("resultareadis").value +=  myObj.compile+"\n" ;
+						// t 
+	    window.dispatchEvent(load_event);
+						
+	    });
+	    }, false);
+    
+ function compile_the_code(){
+	document.getElementById("resultareadis").value ="result\n";
+	code=document.getElementById("codeareadis").value;
+	code_p=code.replace(/\+/g, "$");
+	var code_obj = JSON.stringify({"type":"write","table":code_p});
+	var URL="http://localhost/Lego_compiler.php";
+	httpPostAsync(URL,"param="+code_obj,
+		     function(stringOutput){
+		    myObj = JSON.parse(stringOutput);
+		    document.getElementById("resultareadis").value += myObj.code_file+"\n" + myObj.compile+"\n" + myObj.loaded+"\n";
+		    window.dispatchEvent(event);
+		    });
+	}
+</script>
+<style>
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button2 {border-radius: 100%;}
+</style>	
+</HEAD>
+<BODY onload="read_code()" background="maxresdefault.jpg" style="background-color:#4682B4;" > 
+<table>
+    
+ <tr>
+	 <td align="right" colspan="2">
+	     <button type="button" onclick="compile_the_code()" class="button button2">RUN</button>
+	 </td>
+ </tr>
+    <tr>
+        <td>
+ <div id="codearea" style="height: 480px; width:60px;"> 
+ <textarea id="codeareadis" rows="31" cols="100" style="background-color:#FFF8DC; opacity: .90; color:#191970;">
+code
+</textarea>
+</div>
+ </td> 
+ </tr>
+ 
+ <tr>
+	<td>
+		<div id="resultarea" style="height: 50px; width:910px;"> 
+			<textarea id="resultareadis" rows="15" cols="100" style="background-color:#FFF8DC; opacity: .90; color:#191970;" readonly>result</textarea>
+		</div>	
+	</td>	
+	    
+ </tr>
+</table>
+
+</BODY>
+</HTML>
