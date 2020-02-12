@@ -33,6 +33,10 @@
 .button3 {background-color: #4CAF50;} /* Green */
 .button4 {background-color: #008CBA;} /* blue*/
 </style>
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/an-old-hope.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 </HEAD>
 <BODY background="maxresdefault.jpg" style="background-color:#4682B4;"> 
 <table>
@@ -43,16 +47,14 @@
 	</td>
  </tr>
 <tr>
-<td>
-<div id="blocklyDiv" style="height: 480px; width:850px;"></div>
-</td>
- <td>
- <div id="codearea" style="height: 480px; width:60px;"> 
- <textarea id="codeareadis" rows="31" cols="50" style="background-color:#FFF8DC; opacity: .90; color:#191970;" readonly>
-code
-</textarea>
-</div>
- </td> 
+	<td>
+		<div id="blocklyDiv" style="height: 480px; width:850px;"></div>
+	</td>
+	<td>
+		<pre><code  id="codeareadis" class="java" style="height: 480px; width:400px;">
+
+		</code></pre>
+	</td> 
  </tr>
  <tr>
 	<td>
@@ -115,7 +117,9 @@ code
 	//var dis_code=code.replace(/\n/g, "<br>");
 	document.getElementById("codeareadis").innerHTML = code;
 	code_p=code.replace(/\+/g, "$");
-	
+	document.querySelectorAll('pre code').forEach((block) => {
+    hljs.highlightBlock(block);
+		});
 	}
 	workspace.addChangeListener(run_the_code);
 
