@@ -4,63 +4,27 @@
 <title>Blockly lego rxc programmer</title>
     <!-- this is the code that will allow icon to be visible in the title bar of the brower -->
     <link rel="icon" type="image/ico" href="rcx.png" />
+	<style type="text/css" media="screen">
+    #editor { 
+        position: relative;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+	#editor2 { 
+        position: relative;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+</style>
     <script src="httpHandler.js"></script>
 <script>
-function read_code(){
-    var read_obj = JSON.stringify({"type":"read"});
-	var URL="http://localhost/Lego_compiler.php";
-	httpPostAsync(URL,"param="+read_obj,
-		     function(stringOutput){
-		    myObj = JSON.parse(stringOutput);
-		    document.getElementById("codeareadis").innerHTML= myObj.code_file+"\n" ;
-		    });
-	
-    }
     
-    // even and even listetner to load  the program to the RCX
-	var load_event = new Event('loader')
-	window.addEventListener('loader',
-	 function (e) {
-	document.getElementById("resultareadis").value += "loading the code\n" ;
-	var code_obj = JSON.stringify({"type":"load"});
-	var URL="http://localhost/Lego_compiler.php";
-	httpPostAsync(URL,"param="+code_obj,
-	    function(stringOutput){
-	    myObj = JSON.parse(stringOutput);
-	    document.getElementById("resultareadis").value +=  myObj.loaded+"\n" ;
-						
-	    });
-    }, false);
-    // even and even listetner to compling  the program 	
-	var event = new Event('compiler')
-	window.addEventListener('compiler',
-	 function (e) {
-	document.getElementById("resultareadis").value += "compilling the code\n" ;
-	var code_obj = JSON.stringify({"type":"compile"});
-	var URL="http://localhost/Lego_compiler.php";
-	httpPostAsync(URL,"param="+code_obj,
-	    function(stringOutput){
-	     myObj = JSON.parse(stringOutput);
-	     document.getElementById("resultareadis").value +=  myObj.compile+"\n" ;
-						// t 
-	    window.dispatchEvent(load_event);
-						
-	    });
-	    }, false);
     
- function compile_the_code(){
-	document.getElementById("resultareadis").value ="result\n";
-	code=document.getElementById("codeareadis").value;
-	code_p=code.replace(/\+/g, "$");
-	var code_obj = JSON.stringify({"type":"write","table":code_p});
-	var URL="http://localhost/Lego_compiler.php";
-	httpPostAsync(URL,"param="+code_obj,
-		     function(stringOutput){
-		    myObj = JSON.parse(stringOutput);
-		    document.getElementById("resultareadis").value += myObj.code_file+"\n" + myObj.compile+"\n" + myObj.loaded+"\n";
-		    window.dispatchEvent(event);
-		    });
-	}
+ 
 </script>
 <style>
 .button {
@@ -79,33 +43,93 @@ function read_code(){
 .button2 {border-radius: 100%;}
 </style>	
 </HEAD>
-<BODY onload="read_code()" background="maxresdefault.jpg" style="background-color:#4682B4;" > 
+<BODY  background="maxresdefault.jpg" style="background-color:#4682B4;" > 
 <table>
-    
- <tr>
-	 <td align="right" colspan="2">
-	     <button type="button" onclick="compile_the_code()" class="button button2">RUN</button>
-	 </td>
- </tr>
-    <tr>
-        <td>
- <div id="codearea" style="height: 480px; width:60px;"> 
- <textarea id="codeareadis" rows="31" cols="100" style="background-color:#FFF8DC; opacity: .90; color:#191970;">
-code
-</textarea>
-</div>
- </td> 
- </tr>
- 
- <tr>
-	<td>
-		<div id="resultarea" style="height: 50px; width:910px;"> 
-			<textarea id="resultareadis" rows="15" cols="100" style="background-color:#FFF8DC; opacity: .90; color:#191970;" readonly>result</textarea>
-		</div>	
-	</td>	
-	    
- </tr>
-</table>
+	<tr>
+		<td>
+			<div id="editor" style="height: 480px; width:1000px;">
 
+			</div>
+
+		</td> 
+		<td align="right">
+			<button type="button" onclick="compile_the_code()" class="button button2">RUN</button>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<div id="editor2" style="height: 200px; width:1000px;">
+
+			</div>
+		</td>
+	</tr>
+</table>
+<script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/tomorrow_night_eighties");
+    editor.session.setMode("ace/mode/java");
+	
+	
+	var editor2 = ace.edit("editor2");
+    editor2.setTheme("ace/theme/tomorrow_night_eighties");
+	editor2.setReadOnly(true);
+	
+	
+	 var read_obj = JSON.stringify({"type":"read"});
+	var URL="http://localhost/Lego_compiler.php";
+	httpPostAsync(URL,"param="+read_obj,
+		     function(stringOutput){
+		    myObj = JSON.parse(stringOutput);
+			editor.setValue(myObj.code_file+"\n");
+		    });
+			
+	
+	// even and even listetner to load  the program to the RCX
+	var load_event = new Event('loader')
+	window.addEventListener('loader',
+	 function (e) {
+	 editor2.setValue(editor2.getValue()+"\n"+"loading the code\n");
+	var code_obj = JSON.stringify({"type":"load"});
+	var URL="http://localhost/Lego_compiler.php";
+	httpPostAsync(URL,"param="+code_obj,
+	    function(stringOutput){
+	    myObj = JSON.parse(stringOutput);
+		editor2.setValue(editor2.getValue()+"\n" + myObj.loaded+"\n");			
+	    });
+    }, false);
+    // even and even listetner to compling  the program 	
+	var event = new Event('compiler')
+	window.addEventListener('compiler',
+	 function (e) {
+	editor2.setValue(editor2.getValue()+"\n"+"compilling the code\n" );
+	var code_obj = JSON.stringify({"type":"compile"});
+	var URL="http://localhost/Lego_compiler.php";
+	httpPostAsync(URL,"param="+code_obj,
+	    function(stringOutput){
+	     myObj = JSON.parse(stringOutput);
+	     editor2.setValue(editor2.getValue()+"\n" +myObj.compile+"\n");
+						// t 
+	    window.dispatchEvent(load_event);
+						
+	    });
+	    }, false);
+		
+function compile_the_code(){
+	editor2.setValue("result\n");
+	editor2.setValue(editor2.getValue()+"\n"+"writing to the file\n\n\n" );
+	code=editor.getValue();
+	code_p=code.replace(/\+/g, "$");
+	var code_obj = JSON.stringify({"type":"write","table":code_p});
+	var URL="http://localhost/Lego_compiler.php";
+	httpPostAsync(URL,"param="+code_obj,
+		     function(stringOutput){
+		    myObj = JSON.parse(stringOutput);
+		    window.dispatchEvent(event);
+		    });
+	}
+    
+</script>
 </BODY>
 </HTML>
