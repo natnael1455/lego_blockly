@@ -15,20 +15,38 @@ function select_motor(motor){
  return part_code;
 }
 
+function sensor_type(sensor){
+	var type;
+	switch(sensor) {
+  case '1':
+    type= type_touch;
+    break;
+  case '2':
+    type= type_temp;
+    break;
+  case '3':
+     type= type_light;
+    break;
+  case '4':
+    type= type_rot;
+	}
+	return type;
+}
+
 function sensor_mode(sensor){
 	var mode;
 	switch(sensor) {
   case '1':
-    mode='0x20';
+    mode= mode_bool;
     break;
   case '2':
-    mode='0xA0';
+    mode= mode_degc;
     break;
-	 case '3':
-     mode='0x20';
+  case '3':
+     mode= mode_persent;
     break;
   case '4':
-    mode='0xE0';
+    mode= mode_angle;
 	}
 	return mode;
 }

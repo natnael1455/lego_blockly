@@ -59,7 +59,8 @@ Blockly.JavaScript['event'] = function(block) {
   var statements_event_statement = Blockly.JavaScript.statementToCode(block, 'event_statement');
   // TODO: Assemble JavaScript into code variable.
   var mode_num=sensor_mode(dropdown_sensors);
-  var set_code=senssor_set(dropdown_port,dropdown_sensors,mode_num);
+  var type_num=sensor_type(dropdown_sensors);
+  var set_code=senssor_set(dropdown_port,type_num,mode_num);
   var set_event=senssor_even_listener(dropdown_port,statements_event_statement);
   var code = set_code+set_event;
   return code;
