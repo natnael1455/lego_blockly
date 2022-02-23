@@ -1,8 +1,10 @@
 <?php
 // http response header setting for the php
 header("Content-Type: application/json; charset=UTF-8");  
-$obj = json_decode($_POST["param"], false); 
 $myObj = new stdClass(); 
+
+//accepting the json parmenters of the post request
+$obj = json_decode($_POST["param"], false); 
 
 if ($obj->type == "write") {
 	// it will open the Lego_rcx_code.java file if it exits and or create a new one

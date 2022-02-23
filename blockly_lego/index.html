@@ -109,13 +109,13 @@
 	var editor = ace.edit("editor");
     editor.setTheme("ace/theme/clouds_midnight");
     editor.session.setMode("ace/mode/java");
+	editor.setFontSize("16px")
 	editor.setReadOnly(true);
 	
 	var editor2 = ace.edit("editor2");
     editor2.setTheme("ace/theme/tomorrow_night_eighties");
 	editor2.setReadOnly(true);
 	editor2.setValue("Result");
-
 	var workspace = Blockly.inject('blocklyDiv',
       {toolbox: document.getElementById('toolbox')});
 	var code="";
@@ -127,7 +127,8 @@
 	newBlock.render();
 // for dispaly the code in the text area
 	function run_the_code(){
-	var precode='import josx.platform.rcx.*;\n\n\n'+
+	var precode ='\r\r '+
+				'import josx.platform.rcx.*;\n\n\n'+
 				'public class Lego_rcx_code {\n\n'+
 				'public static void main(String[] args)\n'+      
 				'throws InterruptedException {\n';
